@@ -1,0 +1,410 @@
+[organize_node] Organizing CV information into structured format...[organize_node] Organizing CV information into structured format...
+
+[organize_node] Organizing CV information into structured format...
+[organize_node] Organizing CV information into structured format...
+[organize_node] Organizing CV information into structured format...
+[safe_invoke] response: {
+  "personal_info": {
+    "name": "Minh Pham",
+    "professional_summary": "Design Professional",
+    "locations": [
+      "Beijing",
+      "Hong Kong"
+    ]
+  },
+  "education": [
+    {
+      "institution": "The University of Hong Kong",
+      "degree": "BSc in Design",
+      "graduation_year": "2011"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Tencent",
+      "job_title": "Analyst",
+      "period": "2013 – 2017",
+      "responsibilities": [
+        "Conducted market and product analysis to support decision-making.",
+        "Collaborated with design and engineering teams.",
+        "Produced reports and insights for senior leadership."
+      ]
+    }
+  ],
+  "skills": [
+    "UI/UX Design",
+    "Prototyping",
+    "Graphic Design"
+  ]
+}
+[search_node] Searching for LinkedIn and Facebook profiles...
+[safe_invoke] response: {
+  "personal_info": {
+    "name": "Wei Zhang",
+    "professional_summary": "Consulting Professional",
+    "locations": [
+      "Munich",
+      "Sydney"
+    ]
+  },
+  "education": [
+    {
+      "institution": "University of Tokyo",
+      "degree": "BSc in Consulting",
+      "graduation_year": "2015"
+    }
+  ],
+  "experience": [
+    {
+      "company": "PwC",
+      "job_title": "Engineer",
+      "period": "2013 – Present",
+      "responsibilities": [
+        "Supported consulting engagements across multiple client projects.",
+        "Performed data analysis to inform strategic recommendations.",
+        "Collaborated with cross-functional teams in a professional services environment."
+      ]
+    }
+  ],
+  "skills": [
+    "Data Analysis",
+    "Problem Solving",
+    "Strategy",
+    "PowerPoint"
+  ]
+}
+[search_node] Searching for LinkedIn and Facebook profiles...
+[safe_invoke] response: {
+  "personal_info": {
+    "name": "John Smith",
+    "professional_summary": "Marketing Professional",
+    "locations": [
+      "Singapore",
+      "Kowloon"
+    ]
+  },
+  "education": [
+    {
+      "institution": "McGill University",
+      "degree": "Bachelor of Science (BSc) in Marketing",
+      "graduation_year": "2009"
+    }
+  ],
+  "experience": [
+    {
+      "company": "ByteDance",
+      "job_title": "Engineer",
+      "period": "2020 – Present",
+      "responsibilities": [
+        "Worked in a fast-paced, global technology environment.",
+        "Collaborated across teams to support large-scale platforms.",
+        "Applied analytical and problem-solving skills in production systems."
+      ]
+    }
+  ],
+  "skills": [
+    "Content Creation",
+    "SEO",
+    "Social Media"
+  ]
+}
+[search_node] Searching for LinkedIn and Facebook profiles...
+[safe_invoke] response: {
+  "personal_info": {
+    "name": "Rahul Sharma",
+    "professional_summary": "Legal Professional",
+    "locations": [
+      "Singapore",
+      "Philippines"
+    ]
+  },
+  "education": [
+    {
+      "institution": "Tsinghua University",
+      "degree": "PhD in Legal Studies",
+      "graduation_year": "2021"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Microsoft",
+      "job_title": "Senior Engineer",
+      "period": "2021 – 2027",
+      "responsibilities": [
+        "Led compliance-focused initiatives within large-scale technical teams.",
+        "Advised on regulatory, legal, and risk considerations for complex systems.",
+        "Worked at the intersection of law, technology, and governance."
+      ]
+    },
+    {
+      "company": "StartupXYZ",
+      "job_title": "Consultant",
+      "period": "2020 – 2023",
+      "responsibilities": [
+        "Provided legal and strategic consulting for early-stage companies.",
+        "Supported contract review, compliance, and operational risk management.",
+        "Engaged with cross-functional and international stakeholders."
+      ]
+    }
+  ],
+  "skills": [
+    "Compliance",
+    "Litigation",
+    "Contract Review",
+    "Web3",
+    "Machine Learning",
+    "Quantum Computing"
+  ]
+}
+[search_node] Searching for LinkedIn and Facebook profiles...
+[safe_invoke] response: {
+  "personal_info": {
+    "name": "Rahul Sharma",
+    "professional_summary": "AI Professional",
+    "locations": [
+      "London",
+      "Hong Kong",
+      "Singapore"
+    ]
+  },
+  "education": [
+    {
+      "institution": "University of Tokyo",
+      "degree": "PhD in Artificial Intelligence",
+      "graduation_year": "2012"
+    }
+  ],
+  "experience": [
+    {
+      "company": "EY",
+      "job_title": "Senior Engineer",
+      "period": "Current",
+      "responsibilities": [
+        "Designed and evaluated AI-driven solutions for enterprise clients."
+      ]
+    },
+    {
+      "company": "StartupXYZ",
+      "job_title": "Consultant",
+      "period": "2019 – 2021",
+      "responsibilities": [
+        "Provided AI and data strategy advisory to early-stage companies."
+      ]
+    },
+    {
+      "company": "DataForge",
+      "job_title": "Senior Analyst",
+      "period": "2016 – Present",
+      "responsibilities": [
+        "Conducted advanced data analysis and model evaluation."
+      ]
+    },
+    {
+      "company": "UrbanFlow",
+      "job_title": "Lead Scientist",
+      "period": "2010 – 2017",
+      "responsibilities": [
+        "Led research initiatives in applied AI systems.",
+        "Mentored junior researchers and engineers."
+      ]
+    }
+  ],
+  "skills": [
+    "Machine Learning & AI",
+    "Advanced AI Systems",
+    "Machine Learning (ML)",
+    "Natural Language Processing (NLP)",
+    "TensorFlow",
+    "PyTorch",
+    "Python"
+  ]
+}
+[search_node] Searching for LinkedIn and Facebook profiles...
+[search_node] candidates for Wei Zhang: [{'type': 'text', 'text': '[{"id":97,"name":"Wei Zhang","headline":"Consulting Professional","industry":"Consulting","location":"Munich, Germany","years_experience":15,"match_type":"exact"},{"id":8965,"name":"Wei Zhang","headline":"Consulting Professional","industry":"Consulting","location":"Munich, Germany","years_experience":13,"match_type":"exact"}]', 'id': 'lc_fd1ad0b7-65ff-4544-bfb0-b3c6d911466b'}, {'type': 'text', 'text': '[{"id":2501,"name":"Wei Zhang","headline":"Consulting Professional","industry":"Consulting","location":"Sydney, Australia","years_experience":8,"match_type":"exact"},{"id":2526,"name":"Wei Zhang","headline":"Consulting Professional","industry":"Consulting","location":"Sydney, Australia","years_experience":6,"match_type":"exact"},{"id":7249,"name":"Wei Zhang","headline":"Consulting Professional","industry":"Consulting","location":"Sydney, Australia","years_experience":3,"match_type":"exact"}]', 'id': 'lc_3f9441a1-fb4d-48c2-8e36-445b1e90d18b'}]
+[search_node] Prompt for candidate search:
+
+You are a professional background check expert. Please compare the job seeker's CV information with the following list of candidates found on LinkedIn.
+
+[CV Information]
+Name: Wei Zhang
+Summary: Consulting Professional
+Locations: Munich, Sydney
+
+[LinkedIn Search Results]
+[
+  {
+    "type": "text",
+    "text": "[{\"id\":97,\"name\":\"Wei Zhang\",\"headline\":\"Consulting Professional\",\"industry\":\"Consulting\",\"location\":\"Munich, Germany\",\"years_experience\":15,\"match_type\":\"exact\"},{\"id\":8965,\"name\":\"Wei Zhang\",\"headline\":\"Consulting Professional\",\"industry\":\"Consulting\",\"location\":\"Munich, Germany\",\"years_experience\":13,\"match_type\":\"exact\"}]",
+    "id": "lc_fd1ad0b7-65ff-4544-bfb0-b3c6d911466b"
+  },
+  {
+    "type": "text",
+    "text": "[{\"id\":2501,\"name\":\"Wei Zhang\",\"headline\":\"Consulting Professional\",\"industry\":\"Consulting\",\"location\":\"Sydney, Australia\",\"years_experience\":8,\"match_type\":\"exact\"},{\"id\":2526,\"name\":\"Wei Zhang\",\"headline\":\"Consulting Professional\",\"industry\":\"Consulting\",\"location\":\"Sydney, Australia\",\"years_experience\":6,\"match_type\":\"exact\"},{\"id\":7249,\"name\":\"Wei Zhang\",\"headline\":\"Consulting Professional\",\"industry\":\"Consulting\",\"location\":\"Sydney, Australia\",\"years_experience\":3,\"match_type\":\"exact\"}]",
+    "id": "lc_3f9441a1-fb4d-48c2-8e36-445b1e90d18b"
+  }
+]
+Please analyze which candidate is **MOST LIKELY** the job seeker.
+
+[Output Format]
+Your response **must** be a JSON object with the following format:
+- thought (str): One sentence thought process.
+- id (str): Candidate ID found from LinkedIn or Facebook.
+Here is an example of the expected output format:
+{
+  "thought": <string>,
+  "id": <string>
+}
+
+
+Session termination failed: 
+[safe_invoke] response: {
+  "thought": "All candidates match the name and headline exactly. The CV lists two locations (Munich, Sydney), while each LinkedIn profile lists only one. Since no single LinkedIn profile perfectly matches both locations, I will select the candidate with the highest years of experience, as 'Consulting Professional' often implies a significant level of experience, making ID 97 the most likely fit.",
+  "id": "97"
+}
+Error when search for 'John Smith','Kowloon': unhandled errors in a TaskGroup (1 sub-exception)
+[search_node] candidates for John Smith: [{'type': 'text', 'text': '[{"id":9,"name":"John Smith","headline":"Marketing Professional","industry":"Marketing","location":"Singapore, Singapore","years_experience":7,"match_type":"exact"},{"id":377,"name":"John Smith","headline":"Marketing Professional","industry":"Marketing","location":"Singapore, Singapore","years_experience":1,"match_type":"exact"},{"id":1636,"name":"John Smith","headline":"Marketing Professional","industry":"Marketing","location":"Singapore, Singapore","years_experience":17,"match_type":"exact"},{"id":5145,"name":"John Smith","headline":"Marketing Professional","industry":"Marketing","location":"Singapore, Singapore","years_experience":0,"match_type":"exact"},{"id":6151,"name":"John Smith","headline":"Marketing Professional","industry":"Marketing","location":"Singapore, Singapore","years_experience":10,"match_type":"exact"},{"id":7124,"name":"John Smith","headline":"Marketing Professional","industry":"Marketing","location":"Singapore, Singapore","years_experience":11,"match_type":"exact"},{"id":9814,"name":"John Smith","headline":"Marketing Professional","industry":"Marketing","location":"Singapore, Singapore","years_experience":1,"match_type":"exact"}]', 'id': 'lc_53b40944-f754-40b8-9c29-0abe261b1803'}]
+[search_node] Prompt for candidate search:
+
+You are a professional background check expert. Please compare the job seeker's CV information with the following list of candidates found on LinkedIn.
+
+[CV Information]
+Name: John Smith
+Summary: Marketing Professional
+Locations: Singapore, Kowloon
+
+[LinkedIn Search Results]
+[
+  {
+    "type": "text",
+    "text": "[{\"id\":9,\"name\":\"John Smith\",\"headline\":\"Marketing Professional\",\"industry\":\"Marketing\",\"location\":\"Singapore, Singapore\",\"years_experience\":7,\"match_type\":\"exact\"},{\"id\":377,\"name\":\"John Smith\",\"headline\":\"Marketing Professional\",\"industry\":\"Marketing\",\"location\":\"Singapore, Singapore\",\"years_experience\":1,\"match_type\":\"exact\"},{\"id\":1636,\"name\":\"John Smith\",\"headline\":\"Marketing Professional\",\"industry\":\"Marketing\",\"location\":\"Singapore, Singapore\",\"years_experience\":17,\"match_type\":\"exact\"},{\"id\":5145,\"name\":\"John Smith\",\"headline\":\"Marketing Professional\",\"industry\":\"Marketing\",\"location\":\"Singapore, Singapore\",\"years_experience\":0,\"match_type\":\"exact\"},{\"id\":6151,\"name\":\"John Smith\",\"headline\":\"Marketing Professional\",\"industry\":\"Marketing\",\"location\":\"Singapore, Singapore\",\"years_experience\":10,\"match_type\":\"exact\"},{\"id\":7124,\"name\":\"John Smith\",\"headline\":\"Marketing Professional\",\"industry\":\"Marketing\",\"location\":\"Singapore, Singapore\",\"years_experience\":11,\"match_type\":\"exact\"},{\"id\":9814,\"name\":\"John Smith\",\"headline\":\"Marketing Professional\",\"industry\":\"Marketing\",\"location\":\"Singapore, Singapore\",\"years_experience\":1,\"match_type\":\"exact\"}]",
+    "id": "lc_53b40944-f754-40b8-9c29-0abe261b1803"
+  }
+]
+Please analyze which candidate is **MOST LIKELY** the job seeker.
+
+[Output Format]
+Your response **must** be a JSON object with the following format:
+- thought (str): One sentence thought process.
+- id (str): Candidate ID found from LinkedIn or Facebook.
+Here is an example of the expected output format:
+{
+  "thought": <string>,
+  "id": <string>
+}
+
+
+[safe_invoke] response: {
+  "thought": "All LinkedIn profiles match the job seeker's name and headline exactly, and partially match the location 'Singapore'. As the CV does not provide years of experience or other distinguishing information to differentiate among these equally matching candidates, an arbitrary selection of the first listed ID is made.",
+  "id": "9"
+}
+Error when search for 'Minh Pham','Hong Kong': unhandled errors in a TaskGroup (1 sub-exception)
+[search_node] candidates for Minh Pham: [{'type': 'text', 'text': '[{"id":47,"name":"Minh Pham","headline":"Design Professional","industry":"Design","location":"Beijing, China","years_experience":12,"match_type":"exact"},{"id":4968,"name":"Minh Pham","headline":"Design Professional","industry":"Design","location":"Beijing, China","years_experience":7,"match_type":"exact"},{"id":7002,"name":"Minh Pham","headline":"Design Professional","industry":"Design","location":"Beijing, China","years_experience":13,"match_type":"exact"},{"id":8411,"name":"Minh Pham","headline":"Design Professional","industry":"Design","location":"Beijing, China","years_experience":11,"match_type":"exact"}]', 'id': 'lc_24a6d041-fd2a-432b-b54c-d45ddca27df2'}]
+[search_node] Prompt for candidate search:
+
+You are a professional background check expert. Please compare the job seeker's CV information with the following list of candidates found on LinkedIn.
+
+[CV Information]
+Name: Minh Pham
+Summary: Design Professional
+Locations: Beijing, Hong Kong
+
+[LinkedIn Search Results]
+[
+  {
+    "type": "text",
+    "text": "[{\"id\":47,\"name\":\"Minh Pham\",\"headline\":\"Design Professional\",\"industry\":\"Design\",\"location\":\"Beijing, China\",\"years_experience\":12,\"match_type\":\"exact\"},{\"id\":4968,\"name\":\"Minh Pham\",\"headline\":\"Design Professional\",\"industry\":\"Design\",\"location\":\"Beijing, China\",\"years_experience\":7,\"match_type\":\"exact\"},{\"id\":7002,\"name\":\"Minh Pham\",\"headline\":\"Design Professional\",\"industry\":\"Design\",\"location\":\"Beijing, China\",\"years_experience\":13,\"match_type\":\"exact\"},{\"id\":8411,\"name\":\"Minh Pham\",\"headline\":\"Design Professional\",\"industry\":\"Design\",\"location\":\"Beijing, China\",\"years_experience\":11,\"match_type\":\"exact\"}]",
+    "id": "lc_24a6d041-fd2a-432b-b54c-d45ddca27df2"
+  }
+]
+Please analyze which candidate is **MOST LIKELY** the job seeker.
+
+[Output Format]
+Your response **must** be a JSON object with the following format:
+- thought (str): One sentence thought process.
+- id (str): Candidate ID found from LinkedIn or Facebook.
+Here is an example of the expected output format:
+{
+  "thought": <string>,
+  "id": <string>
+}
+
+
+[safe_invoke] response: {
+  "thought": "All LinkedIn candidates match the job seeker's name, summary, and one of the locations (Beijing). Since the CV does not provide years of experience and all candidates are identical in the matching fields, it is impossible to determine the 'most likely' candidate among them. Therefore, I will arbitrarily select the first candidate's ID.",
+  "id": "47"
+}
+[search_node] candidates for Rahul Sharma: [{'type': 'text', 'text': '[{"id":2919,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Singapore, Singapore","years_experience":11,"match_type":"exact"},{"id":3750,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Singapore, Singapore","years_experience":12,"match_type":"exact"},{"id":5456,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Singapore, Singapore","years_experience":14,"match_type":"exact"},{"id":6061,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Singapore, Singapore","years_experience":7,"match_type":"exact"},{"id":8893,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Singapore, Singapore","years_experience":18,"match_type":"exact"},{"id":9660,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Singapore, Singapore","years_experience":12,"match_type":"exact"},{"id":9908,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Singapore, Singapore","years_experience":12,"match_type":"exact"}]', 'id': 'lc_f472bac3-097e-4f90-8b23-370a9a2285f4'}, {'type': 'text', 'text': '[{"id":91,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Cebu, Philippines","years_experience":2,"match_type":"exact"},{"id":3008,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Cebu, Philippines","years_experience":4,"match_type":"exact"},{"id":4709,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Manila, Philippines","years_experience":6,"match_type":"exact"},{"id":6797,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Cebu, Philippines","years_experience":2,"match_type":"exact"},{"id":9024,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Manila, Philippines","years_experience":2,"match_type":"exact"},{"id":9748,"name":"Rahul Sharma","headline":"Legal Professional","industry":"Legal","location":"Manila, Philippines","years_experience":9,"match_type":"exact"}]', 'id': 'lc_6fdb7e82-706a-4920-90f3-5082d82594f5'}]
+[search_node] Prompt for candidate search:
+
+You are a professional background check expert. Please compare the job seeker's CV information with the following list of candidates found on LinkedIn.
+
+[CV Information]
+Name: Rahul Sharma
+Summary: Legal Professional
+Locations: Singapore, Philippines
+
+[LinkedIn Search Results]
+[
+  {
+    "type": "text",
+    "text": "[{\"id\":2919,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Singapore, Singapore\",\"years_experience\":11,\"match_type\":\"exact\"},{\"id\":3750,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Singapore, Singapore\",\"years_experience\":12,\"match_type\":\"exact\"},{\"id\":5456,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Singapore, Singapore\",\"years_experience\":14,\"match_type\":\"exact\"},{\"id\":6061,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Singapore, Singapore\",\"years_experience\":7,\"match_type\":\"exact\"},{\"id\":8893,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Singapore, Singapore\",\"years_experience\":18,\"match_type\":\"exact\"},{\"id\":9660,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Singapore, Singapore\",\"years_experience\":12,\"match_type\":\"exact\"},{\"id\":9908,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Singapore, Singapore\",\"years_experience\":12,\"match_type\":\"exact\"}]",
+    "id": "lc_f472bac3-097e-4f90-8b23-370a9a2285f4"
+  },
+  {
+    "type": "text",
+    "text": "[{\"id\":91,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Cebu, Philippines\",\"years_experience\":2,\"match_type\":\"exact\"},{\"id\":3008,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Cebu, Philippines\",\"years_experience\":4,\"match_type\":\"exact\"},{\"id\":4709,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Manila, Philippines\",\"years_experience\":6,\"match_type\":\"exact\"},{\"id\":6797,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Cebu, Philippines\",\"years_experience\":2,\"match_type\":\"exact\"},{\"id\":9024,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Manila, Philippines\",\"years_experience\":2,\"match_type\":\"exact\"},{\"id\":9748,\"name\":\"Rahul Sharma\",\"headline\":\"Legal Professional\",\"industry\":\"Legal\",\"location\":\"Manila, Philippines\",\"years_experience\":9,\"match_type\":\"exact\"}]",
+    "id": "lc_6fdb7e82-706a-4920-90f3-5082d82594f5"
+  }
+]
+Please analyze which candidate is **MOST LIKELY** the job seeker.
+
+[Output Format]
+Your response **must** be a JSON object with the following format:
+- thought (str): One sentence thought process.
+- id (str): Candidate ID found from LinkedIn or Facebook.
+Here is an example of the expected output format:
+{
+  "thought": <string>,
+  "id": <string>
+}
+
+
+[safe_invoke:1] Error during LLM invocation: Server disconnected without sending a response.
+[safe_invoke:2] Error during LLM invocation: [Errno 54] Connection reset by peer
+[safe_invoke:3] Error during LLM invocation: [Errno 54] Connection reset by peer
+Session termination failed: 
+[investigate_node] Investigating discrepancies between CV and LinkedIn profile...
+[investigate_node] Prompt for investigation:
+
+You are a professional background check expert. Please compare the job seeker's CV information with the LinkedIn profile information.
+[CV Information]
+{'personal_info': {'name': 'John Smith', 'professional_summary': 'Marketing Professional', 'locations': ['Singapore', 'Kowloon']}, 'education': [{'institution': 'McGill University', 'degree': 'Bachelor of Science (BSc) in Marketing', 'graduation_year': '2009'}], 'experience': [{'company': 'ByteDance', 'job_title': 'Engineer', 'period': '2020 – Present', 'responsibilities': ['Worked in a fast-paced, global technology environment.', 'Collaborated across teams to support large-scale platforms.', 'Applied analytical and problem-solving skills in production systems.']}], 'skills': ['Content Creation', 'SEO', 'Social Media']}
+[LinkedIn Profile Information]
+[{'type': 'text', 'text': '{"id":9,"name":"John Smith","headline":"Marketing Professional","city":"Singapore","country":"Singapore","industry":"Marketing","status":"student","years_experience":7,"summary":"Tax century group simple reveal. Democrat manage main oil recognize. Study cup discover drop whom collection manage.","skills":[{"name":"Content Creation","proficiency":4},{"name":"SEO","proficiency":3},{"name":"Social Media","proficiency":3}],"experience":[{"company":"ByteDance","title":"Engineer","seniority":"mid","start_year":2020,"end_year":null,"is_current":false}],"education":[{"school":"McGill University","degree":"BSc","field":"Marketing","start_year":2005,"end_year":2009}]}', 'id': 'lc_60e53c6b-9b36-4a95-b3fc-a71dcf309dae'}]
+[scoring criteria]
+Each cv credibility is scored between [0, 1]. 1.0 indicates perfect match and no discrepancies. 0.0 indicates major discrepancies. You need to identify all mismatches and deduct points according to the following rules:
+
+1. Core Resume Falsification (High, -0.3): The company listed on the CV does not exist on LinkedIn.
+2. Education Falsification (High, -0.3): The school or degree is seriously inconsistent.
+3. Exaggerated Job Title (Medium, -0.15): The CV states Senior/Director, but LinkedIn lists it as Junior/Parallel.
+4. Exaggerated Work Hours (Medium, -0.15): The work hours listed on the CV do not match those on LinkedIn.
+5. Overstated Skills (Low, -0.05): The core skills listed on the CV do not match those on LinkedIn.
+[Output Format]
+Your response **must** be a JSON object with the following format:
+- discrepancies (list): Discrepancies found between CV and LinkedIn profile.
+Here is an example of the expected output format:
+{
+  "discrepancies": [
+    {
+      "severity": <string>,
+      "reason": <string>
+    },
+    ...
+  ]
+}
+
+
+[safe_invoke:1] Error during LLM invocation: [Errno 54] Connection reset by peer
+[safe_invoke:2] Error during LLM invocation: [Errno 54] Connection reset by peer
+[safe_invoke:3] Error during LLM invocation: [Errno 54] Connection reset by peer
+Error when search for 'Rahul Sharma','Hong Kong': unhandled errors in a TaskGroup (1 sub-exception)
