@@ -5,35 +5,17 @@ from prompts import *
 import sqlite3
 from subprocess import Popen, PIPE
 from datetime import datetime
-import anthropic
+from dotenv import load_dotenv
 
-openai_client = OpenAI(api_key=OPENAI_API_KEY)
+# Load environment variables from .env file
+load_dotenv()
 
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+# Configure DeepSeek via OpenAI SDK
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY")
+DEEPSEEK_BASE_URL = os.environ.get("DEEPSEEK_BASE_URL")
+DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL")
 
-def load_local_model(model_id="Qwen/Qwen2.5-1.5B-Instruct"):
-    """
-    Loads the Llama 3.1 8B Instruct model and tokenizer in 4-bit precision.
-    """
-    model_id = model_id # "Qwen/Qwen2.5-1.5B-Instruct" # "meta-llama/Meta-Llama-3.1-8B-Instruct"
-    print(f"Loading model: {model_id}...")
-
-    # Load the tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
-
-    # Load the model with 8-bit quantization
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        torch_dtype=torch.bfloat16,  # Use bfloat16 for efficiency
-        device_map="auto",          # Automatically uses the GPU
-        load_in_4bit=True,          # Enable 4-bit quantization
-    )
-    print("Model loaded successfully.")
-    return model, tokenizer
-
-model, tokenizer = load_local_model()
-client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+openai_client = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
 
 def normalize_rows(rows):
     # Each row is a tuple; we sort each row and also sort the list of rows
@@ -58,26 +40,32 @@ def query_execution(item, sql):
     return exec_match, gen_err
 
 def call_agent(prompt: str, model=None, temperature: float = 0.0) -> str:
-    if model:
-            resp = openai_client.chat.completions.create(
-            model= "gpt-5", # "gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}],)
-            return resp.choices[0].message.content.strip()
-    resp = client.messages.create(
-        model="claude-3-opus-20240229",
-        max_tokens=2048,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=temperature
-    )
-    return resp.content[0].text.strip()
+    # Use DeepSeek API
+    try:
+        resp = openai_client.chat.completions.create(
+            model=DEEPSEEK_MODEL,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=temperature
+        )
+        response_text = resp.choices[0].message.content.strip()
+        
+        # Logging
+        log_entry = {
+            "timestamp": datetime.now().isoformat(),
+            "model_used": DEEPSEEK_MODEL,
+            "prompt": prompt,
+            "response": response_text
+        }
+        with open("deepseek_logs.json", "a", encoding="utf-8") as f:
+            f.write(json.dumps(log_entry, ensure_ascii=False) + "\n")
+            
+        return response_text
+    except Exception as e:
+        print(f"Error calling DeepSeek API: {e}")
+        return ""
 
 def call_gpt5_agent(prompt: str, temperature: float = 0.0) -> str:
-    resp = openai_client.chat.completions.create(
-        model="gpt-5",
-        messages=[{"role": "user", "content": prompt}],
-        # temperature=temperature
-    )
-    return resp.choices[0].message.content.strip()
+    return call_agent(prompt, temperature=temperature)
 
 def postprocess_sql(sql: str) -> str:
     sql_start_pattern = r'\b(select|insert)\b'
@@ -127,57 +115,6 @@ def check_valid_critic_and_push_error(sql: str, question: str, db_id: str, schem
 
     return valid, error_types
 
-def call_agent_local(
-    prompt: str,
-    model=model,
-    tokenizer=tokenizer,
-    system_prompt: str = "You are an expert agent in a Text2SQL framework specializing in a single task. Please follow the user's instructions carefully."
-) -> str:
-    """
-    Calls a local Hugging Face model to get a response.
-
-    Args:
-        prompt: The user's prompt.
-        model: The loaded Hugging Face model object.
-        tokenizer: The loaded Hugging Face tokenizer object.
-        system_prompt: The system-level instruction for the model.
-
-    Returns:
-        The model's generated text response.
-    """
-    # Llama 3.1 uses a specific chat template.
-    # We must format the input this way for the model to perform well.
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": prompt},
-    ]
-
-    # This function correctly formats the messages into a single string
-    # with the required special tokens (e.g., <|begin_of_text|>, <|eot_id|>)
-    input_prompt = tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True
-    )
-
-    # Tokenize the formatted prompt
-    input_ids = tokenizer(input_prompt, return_tensors="pt").to(model.device)
-
-    # Generate the response
-    outputs = model.generate(
-        **input_ids,
-        max_new_tokens=2048,   # Max tokens to generate
-        do_sample=False,       # Set to False for deterministic output
-        temperature=None,      # Not needed when do_sample=False
-        top_p=None,            # Not needed when do_sample=False
-        pad_token_id=tokenizer.eos_token_id # Set pad token to end-of-sequence token
-    )
-
-    # Decode the output, skipping the original prompt
-    response_ids = outputs[0][input_ids["input_ids"].shape[1]:]
-    response_text = tokenizer.decode(response_ids, skip_special_tokens=True)
-
-    return response_text.strip()
 
 def is_critic_valid(sql: str, question: str, db_id: str, error_db_path="error_db.json") -> (bool, list):
     try:
@@ -257,8 +194,11 @@ def load_schema_without_PKFK(db_id: str) -> str:
     return "\n".join(schema_lines)
 
 
-# NL2SQL bugs file
-BUGS_DB = open("../../nl2sql_bugs.json").read()
+# NL2SQL bugs file (safely load or default to empty if not found)
+try:
+    BUGS_DB = open("../../nl2sql_bugs.json").read()
+except FileNotFoundError:
+    BUGS_DB = "{}"
 
 def exec_query(db_file: str, sql: str):
     conn = sqlite3.connect(db_file)

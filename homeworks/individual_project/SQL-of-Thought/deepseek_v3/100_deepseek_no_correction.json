@@ -1,0 +1,1013 @@
+{
+  "summary": {
+    "total": 100,
+    "exact_match": 1,
+    "valid_sql": 98,
+    "execution_accuracy": 79,
+    "exact_match_rate": 0.01,
+    "valid_sql_rate": 0.98,
+    "execution_accuracy_rate": 0.79
+  },
+  "results": [
+    {
+      "question": "How many singers do we have?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select count(*) from singer",
+      "gen_sql": "select count(distinct singer.singer_id) from singer",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the total number of singers?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select count(*) from singer",
+      "gen_sql": "select count(distinct singer.singer_id) from singer",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Show name, country, age for all singers ordered by age from the oldest to the youngest.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name, country, age from singer order by age desc",
+      "gen_sql": "select singer.name, singer.country, singer.age from singer order by singer.age desc",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the names, countries, and ages for every singer in descending order of age?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name, country, age from singer order by age desc",
+      "gen_sql": "select singer.name, singer.country, singer.age from singer order by singer.age desc",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the average, minimum, and maximum age of all singers from France?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select avg(age), min(age), max(age) from singer where country = 'france'",
+      "gen_sql": "select avg(singer.age), min(singer.age), max(singer.age) from singer where singer.country = 'france'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the average, minimum, and maximum age for all French singers?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select avg(age), min(age), max(age) from singer where country = 'france'",
+      "gen_sql": "select avg(singer.age) as average_age, min(singer.age) as minimum_age, max(singer.age) as maximum_age from singer where singer.country = 'french'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Show the name and the release year of the song by the youngest singer.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select song_name, song_release_year from singer order by age limit 1",
+      "gen_sql": "select singer.name, singer.song_release_year from singer join singer_in_concert on singer.singer_id = singer_in_concert.singer_id where singer.age = (select min(age) from singer) limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What are the names and release years for all the songs of the youngest singer?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select song_name, song_release_year from singer order by age limit 1",
+      "gen_sql": "select singer.name, singer.song_name, singer.song_release_year from singer where singer.age = (select min(singer.age) from singer)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What are all distinct countries where singers above age 20 are from?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select distinct country from singer where age > 20",
+      "gen_sql": "select distinct singer.country from singer where singer.age > 20",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are  the different countries with singers above age 20?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select distinct country from singer where age > 20",
+      "gen_sql": "select distinct singer.country from singer where singer.age > 20",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Show all countries and the number of singers in each country.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select country, count(*) from singer group by country",
+      "gen_sql": "select singer.country, count(singer.singer_id) as singer_count from singer group by singer.country",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many singers are from each country?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select country, count(*) from singer group by country",
+      "gen_sql": "select singer.country, count(singer.singer_id) from singer group by singer.country",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "List all song names by singers above the average age.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select song_name from singer where age > (select avg(age) from singer)",
+      "gen_sql": "select singer.song_name from singer where singer.age > (select avg(age) from singer)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are all the song names by singers who are older than average?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select song_name from singer where age > (select avg(age) from singer)",
+      "gen_sql": "select singer.song_name from singer where singer.age > (select avg(age) from singer)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Show location and name for all stadiums with a capacity between 5000 and 10000.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select location, name from stadium where capacity between 5000 and 10000",
+      "gen_sql": "select location, name from stadium where capacity between 5000 and 10000",
+      "exact_match": true,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the locations and names of all stations with capacity between 5000 and 10000?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select location, name from stadium where capacity between 5000 and 10000",
+      "gen_sql": "select stadium.location, stadium.name from stadium where stadium.capacity between 5000 and 10000",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the maximum capacity and the average of all stadiums ?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select max(capacity), average from stadium",
+      "gen_sql": "select max(stadium.capacity), avg(stadium.average) from stadium",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What is the average and maximum capacities for all stadiums ?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select avg(capacity), max(capacity) from stadium",
+      "gen_sql": "select avg(stadium.capacity), max(stadium.capacity) from stadium",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the name and capacity for the stadium with highest average attendance?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name, capacity from stadium order by average desc limit 1",
+      "gen_sql": "select stadium.name, stadium.capacity from stadium join concert on stadium.stadium_id = concert.stadium_id group by stadium.stadium_id, stadium.name, stadium.capacity order by avg(concert.attendance) desc limit 1",
+      "exact_match": false,
+      "valid_sql": false,
+      "exec_match": false
+    },
+    {
+      "question": "What is the name and capacity for the stadium with the highest average attendance?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name, capacity from stadium order by average desc limit 1",
+      "gen_sql": "select stadium.name, stadium.capacity from stadium join concert on stadium.stadium_id = concert.stadium_id group by stadium.stadium_id, stadium.name, stadium.capacity order by avg(concert.attendance) desc limit 1",
+      "exact_match": false,
+      "valid_sql": false,
+      "exec_match": false
+    },
+    {
+      "question": "How many concerts are there in year 2014 or 2015?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select count(*) from concert where year = 2014 or year = 2015",
+      "gen_sql": "select count(concert.concert_id) from concert where concert.year in (2014, 2015)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many concerts occurred in 2014 or 2015?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select count(*) from concert where year = 2014 or year = 2015",
+      "gen_sql": "select count(*) from concert where concert.year in (2014, 2015)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Show the stadium name and the number of concerts in each stadium.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, count(*) from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id group by t1.stadium_id",
+      "gen_sql": "select stadium.name, count(concert.concert_id) from stadium join concert on stadium.stadium_id = concert.stadium_id group by stadium.name",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "For each stadium, how many concerts play there?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, count(*) from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id group by t1.stadium_id",
+      "gen_sql": "select stadium.stadium_id, count(concert.concert_id) from stadium join concert on stadium.stadium_id = concert.stadium_id group by stadium.stadium_id",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Show the stadium name and capacity with most number of concerts in year 2014 or after.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, t2.capacity from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year >= 2014 group by t2.stadium_id order by count(*) desc limit 1",
+      "gen_sql": "select stadium.name, stadium.capacity from stadium join concert on stadium.stadium_id = concert.stadium_id join singer_in_concert on concert.concert_id = singer_in_concert.concert_id where concert.year >= 2014 group by stadium.stadium_id, stadium.name, stadium.capacity order by count(concert.concert_id) desc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What is the name and capacity of the stadium with the most concerts after 2013 ?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, t2.capacity from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year > 2013 group by t2.stadium_id order by count(*) desc limit 1",
+      "gen_sql": "select stadium.name, stadium.capacity from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year > 2013 group by stadium.stadium_id, stadium.name, stadium.capacity order by count(concert.concert_id) desc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Which year has most number of concerts?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select year from concert group by year order by count(*) desc limit 1",
+      "gen_sql": "select concert.year from concert group by concert.year order by count(concert.concert_id) desc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the year that had the most concerts?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select year from concert group by year order by count(*) desc limit 1",
+      "gen_sql": "select concert.year, count(*) as concert_count from concert group by concert.year order by concert_count desc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Show the stadium names without any concert.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name from stadium where stadium_id not in (select stadium_id from concert)",
+      "gen_sql": "select stadium.name from stadium left join concert on stadium.stadium_id = concert.stadium_id where concert.concert_id is null",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the names of the stadiums without any concerts?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name from stadium where stadium_id not in (select stadium_id from concert)",
+      "gen_sql": "select stadium.name from stadium left join concert on stadium.stadium_id = concert.stadium_id where concert.concert_id is null",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Show countries where a singer above age 40 and a singer below 30 are from.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select country from singer where age > 40 intersect select country from singer where age < 30",
+      "gen_sql": "select distinct s1.country from singer s1 where s1.age > 40 intersect select distinct s2.country from singer s2 where s2.age < 30",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Show names for all stadiums except for stadiums having a concert in year 2014.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name from stadium except select t2.name from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year = 2014",
+      "gen_sql": "select stadium.name from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year != 2014 except select stadium.name from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year = 2014",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What are the names of all stadiums that did not have a concert in 2014?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name from stadium except select t2.name from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year = 2014",
+      "gen_sql": "select stadium.name from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year != 2014 except select stadium.name from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year = 2014",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Show the name and theme for all concerts and the number of singers in each concert.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.concert_name, t2.theme, count(*) from singer_in_concert as t1 join concert as t2 on t1.concert_id = t2.concert_id group by t2.concert_id",
+      "gen_sql": "select concert.concert_name, concert.theme, count(singer_in_concert.singer_id) as singer_count from concert join singer_in_concert on concert.concert_id = singer_in_concert.concert_id group by concert.concert_id, concert.concert_name, concert.theme",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the names , themes , and number of singers for every concert ?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.concert_name, t2.theme, count(*) from singer_in_concert as t1 join concert as t2 on t1.concert_id = t2.concert_id group by t2.concert_id",
+      "gen_sql": "select concert.concert_name, concert.theme, count(singer_in_concert.singer_id) as number_of_singers from concert join singer_in_concert on concert.concert_id = singer_in_concert.concert_id group by concert.concert_id, concert.concert_name, concert.theme",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "List singer names and number of concerts for each singer.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, count(*) from singer_in_concert as t1 join singer as t2 on t1.singer_id = t2.singer_id group by t2.singer_id",
+      "gen_sql": "select singer.name, count(concert.concert_id) as number_of_concerts from singer join singer_in_concert on singer.singer_id = singer_in_concert.singer_id join concert on singer_in_concert.concert_id = concert.concert_id group by singer.name",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the names of the singers and number of concerts for each person?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, count(*) from singer_in_concert as t1 join singer as t2 on t1.singer_id = t2.singer_id group by t2.singer_id",
+      "gen_sql": "select singer.name, count(singer_in_concert.concert_id) as number_of_concerts from singer join singer_in_concert on singer.singer_id = singer_in_concert.singer_id group by singer.name",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "List all singer names in concerts in year 2014.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name from singer_in_concert as t1 join singer as t2 on t1.singer_id = t2.singer_id join concert as t3 on t1.concert_id = t3.concert_id where t3.year = 2014",
+      "gen_sql": "select singer.name from singer join singer_in_concert on singer.singer_id = singer_in_concert.singer_id join concert on singer_in_concert.concert_id = concert.concert_id where concert.year = 2014",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the names of the singers who performed in a concert in 2014?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name from singer_in_concert as t1 join singer as t2 on t1.singer_id = t2.singer_id join concert as t3 on t1.concert_id = t3.concert_id where t3.year = 2014",
+      "gen_sql": "select singer.name from singer_in_concert join singer on singer_in_concert.singer_id = singer.singer_id join concert on singer_in_concert.concert_id = concert.concert_id where concert.year = 2014",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name, country from singer where song_name like '%hey%'",
+      "gen_sql": "select singer.name, singer.country from singer join singer_in_concert on singer.singer_id = singer_in_concert.singer_id where singer.song_name like '%hey%'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What is the name and country of origin of every singer who has a song with the word 'Hey' in its title?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select name, country from singer where song_name like '%hey%'",
+      "gen_sql": "select distinct singer.name, singer.country from singer join singer_in_concert on singer.singer_id = singer_in_concert.singer_id where singer.song_name like '%hey%'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the name and location of the stadiums which some concerts happened in the years of both 2014 and 2015.",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, t2.location from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year = 2014 intersect select t2.name, t2.location from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year = 2015",
+      "gen_sql": "select stadium.name, stadium.location from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year = 2014 intersect select stadium.name, stadium.location from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year = 2015",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the names and locations of the stadiums that had concerts that occurred in both 2014 and 2015?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select t2.name, t2.location from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year = 2014 intersect select t2.name, t2.location from concert as t1 join stadium as t2 on t1.stadium_id = t2.stadium_id where t1.year = 2015",
+      "gen_sql": "select stadium.name, stadium.location from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year = 2014 intersect select stadium.name, stadium.location from stadium join concert on stadium.stadium_id = concert.stadium_id where concert.year = 2015",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the number of concerts happened in the stadium with the highest capacity .",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select count(*) from concert where stadium_id = (select stadium_id from stadium order by capacity desc limit 1)",
+      "gen_sql": "select count(concert.concert_id) from concert join stadium on concert.stadium_id = stadium.stadium_id where stadium.capacity = (select max(stadium.capacity) from stadium)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the number of concerts that occurred in the stadium with the largest capacity ?",
+      "db_id": "concert_singer",
+      "agents": {},
+      "gold_sql": "select count(*) from concert where stadium_id = (select stadium_id from stadium order by capacity desc limit 1)",
+      "gen_sql": "select count(concert.concert_id) from concert join stadium on concert.stadium_id = stadium.stadium_id where stadium.capacity = (select max(capacity) from stadium) group by stadium.stadium_id",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Find the number of pets whose weight is heavier than 10.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*) from pets where weight > 10",
+      "gen_sql": "select count(*) from pets join has_pet on pets.petid = has_pet.petid where pets.weight > 10",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many pets have a greater weight than 10?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*) from pets where weight > 10",
+      "gen_sql": "select count(*) from pets join has_pet on pets.petid = has_pet.petid where pets.weight > 10",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the weight of the youngest dog.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select weight from pets order by pet_age limit 1",
+      "gen_sql": "select pets.weight from pets join has_pet on pets.petid = has_pet.petid where pets.pet_age = (select min(pets.pet_age) from pets)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How much does the youngest dog weigh?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select weight from pets order by pet_age limit 1",
+      "gen_sql": "select pets.weight from pets join has_pet on pets.petid = has_pet.petid join student on has_pet.stuid = student.stuid where pets.pet_age = (select min(pet_age) from pets) limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the maximum weight for each type of pet. List the maximum weight and pet type.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select max(weight), pettype from pets group by pettype",
+      "gen_sql": "select pets.pettype, max(pets.weight) as max_weight from pets group by pets.pettype",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "List the maximum weight and type for each type of pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select max(weight), pettype from pets group by pettype",
+      "gen_sql": "select pets.pettype, max(pets.weight) as max_weight from pets group by pets.pettype",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find number of pets owned by students who are older than 20.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*) from student as t1 join has_pet as t2 on t1.stuid = t2.stuid where t1.age > 20",
+      "gen_sql": "select count(pets.petid) from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where student.age > 20",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many pets are owned by students that have an age greater than 20?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*) from student as t1 join has_pet as t2 on t1.stuid = t2.stuid where t1.age > 20",
+      "gen_sql": "select count(pets.petid) from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where student.age > 20",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the number of dog pets that are raised by female students (with sex F).",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*) from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t2.petid = t3.petid where t1.sex = 'f' and t3.pettype = 'dog'",
+      "gen_sql": "select count(pets.petid) from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where student.sex = 'f' and pets.pettype = 'dog'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many dog pets are raised by female students?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*) from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t2.petid = t3.petid where t1.sex = 'f' and t3.pettype = 'dog'",
+      "gen_sql": "select count(*) as num_dog_pets from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where student.sex = 'female' and pets.pettype = 'dog'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the number of distinct type of pets.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(distinct pettype) from pets",
+      "gen_sql": "select count(distinct pets.pettype) from has_pet join pets on has_pet.petid = pets.petid",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many different types of pet are there?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(distinct pettype) from pets",
+      "gen_sql": "select count(distinct pets.pettype) from pets",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the first name of students who have cat or dog pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select distinct t1.fname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat' or t3.pettype = 'dog'",
+      "gen_sql": "select student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype in ('cat', 'dog')",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What are the first names of every student who has a cat or dog as a pet?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select distinct t1.fname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat' or t3.pettype = 'dog'",
+      "gen_sql": "select distinct student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype in ('cat', 'dog')",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the first name of students who have both cat and dog pets .",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.fname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat' intersect select t1.fname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'dog'",
+      "gen_sql": "select student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat' intersect select student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'dog'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the students' first names who have both cats and dogs as pets?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.fname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat' intersect select t1.fname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'dog'",
+      "gen_sql": "select student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat' intersect select student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'dog'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the major and age of students who do not have a cat pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select major, age from student where stuid not in (select t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat')",
+      "gen_sql": "select student.major, student.age from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype != 'cat' except select student.major, student.age from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What major is every student who does not own a cat as a pet, and also how old are they?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select major, age from student where stuid not in (select t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat')",
+      "gen_sql": "select distinct student.major, student.age from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype != 'cat'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Find the id of students who do not have a cat pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select stuid from student except select t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat'",
+      "gen_sql": "select student.stuid from student except select student.stuid from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the ids of the students who do not own cats as pets?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select stuid from student except select t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat'",
+      "gen_sql": "select student.stuid from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype != 'cat' except select student.stuid from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Find the first name and age of students who have a dog but do not have a cat as a pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.fname, t1.age from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'dog' and t1.stuid not in (select t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat')",
+      "gen_sql": "select student.fname, student.age from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'dog' except select student.fname, student.age from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What is the first name of every student who has a dog but does not have a cat?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.fname, t1.age from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'dog' and t1.stuid not in (select t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pettype = 'cat')",
+      "gen_sql": "select student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'dog' except select student.fname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Find the type and weight of the youngest pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select pettype, weight from pets order by pet_age limit 1",
+      "gen_sql": "select pets.pettype, pets.weight from pets join has_pet on pets.petid = has_pet.petid order by pets.pet_age asc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What type of pet is the youngest animal, and how much does it weigh?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select pettype, weight from pets order by pet_age limit 1",
+      "gen_sql": "select pets.pettype, pets.weight from pets join has_pet on pets.petid = has_pet.petid join student on has_pet.stuid = student.stuid order by pets.pet_age asc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the id and weight of all pets whose age is older than 1.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select petid, weight from pets where pet_age > 1",
+      "gen_sql": "select pets.petid, pets.weight from pets join has_pet on has_pet.petid = pets.petid where pets.pet_age > 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the id and weight of every pet who is older than 1?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select petid, weight from pets where pet_age > 1",
+      "gen_sql": "select pets.petid, pets.weight from pets join has_pet on pets.petid = has_pet.petid join student on has_pet.stuid = student.stuid where pets.pet_age > 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the average and maximum age for each type of pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select avg(pet_age), max(pet_age), pettype from pets group by pettype",
+      "gen_sql": "select pets.pettype, avg(pets.pet_age) as average_age, max(pets.pet_age) as max_age from pets join has_pet on pets.petid = has_pet.petid group by pets.pettype",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the average and maximum age for each pet type?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select avg(pet_age), max(pet_age), pettype from pets group by pettype",
+      "gen_sql": "select pets.pettype, avg(pets.pet_age) as average_age, max(pets.pet_age) as max_age from pets join has_pet on pets.petid = has_pet.petid group by pets.pettype",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the average weight for each pet type.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select avg(weight), pettype from pets group by pettype",
+      "gen_sql": "select pets.pettype, avg(pets.weight) as averageweight from pets group by pets.pettype",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the average weight for each type of pet?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select avg(weight), pettype from pets group by pettype",
+      "gen_sql": "select pets.pettype, avg(pets.weight) as average_weight from pets group by pets.pettype",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the first name and age of students who have a pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select distinct t1.fname, t1.age from student as t1 join has_pet as t2 on t1.stuid = t2.stuid",
+      "gen_sql": "select distinct student.fname, student.age from student join has_pet on student.stuid = has_pet.stuid",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What are the different first names and ages of the students who do have pets?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select distinct t1.fname, t1.age from student as t1 join has_pet as t2 on t1.stuid = t2.stuid",
+      "gen_sql": "select distinct student.fname, student.age from student join has_pet on student.stuid = has_pet.stuid where has_pet.petid is not null",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the id of the pet owned by student whose last name is \u2018Smith\u2019.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t2.petid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid where t1.lname = 'smith'",
+      "gen_sql": "select pets.petid from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where student.lname = 'smith'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the id of the pet owned by the student whose last name is 'Smith'?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t2.petid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid where t1.lname = 'smith'",
+      "gen_sql": "select pets.petid from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where student.lname = 'smith'",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the number of pets for each student who has any pet and student id.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*), t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid group by t1.stuid",
+      "gen_sql": "select student.stuid, count(pets.petid) as num_pets from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid group by student.stuid having count(pets.petid) > 0",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "For students who have pets , how many pets does each student have ? list their ids instead of names .",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select count(*), t1.stuid from student as t1 join has_pet as t2 on t1.stuid = t2.stuid group by t1.stuid",
+      "gen_sql": "select student.stuid, count(pets.petid) as pet_count from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid group by student.stuid",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the first name and gender of student who have more than one pet.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.fname, t1.sex from student as t1 join has_pet as t2 on t1.stuid = t2.stuid group by t1.stuid having count(*) > 1",
+      "gen_sql": "select student.fname, student.sex from student join has_pet on student.stuid = has_pet.stuid group by student.stuid, student.fname, student.sex having count(has_pet.petid) > 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the first name and gender of the all the students who have more than one pet?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.fname, t1.sex from student as t1 join has_pet as t2 on t1.stuid = t2.stuid group by t1.stuid having count(*) > 1",
+      "gen_sql": "select student.fname, student.sex from student join has_pet on student.stuid = has_pet.stuid group by student.stuid, student.fname, student.sex having count(has_pet.petid) > 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the last name of the student who has a cat that is age 3.",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.lname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pet_age = 3 and t3.pettype = 'cat'",
+      "gen_sql": "select student.lname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat' and pets.pet_age = 3",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the last name of the student who has a cat that is 3 years old?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select t1.lname from student as t1 join has_pet as t2 on t1.stuid = t2.stuid join pets as t3 on t3.petid = t2.petid where t3.pet_age = 3 and t3.pettype = 'cat'",
+      "gen_sql": "select student.lname from student join has_pet on student.stuid = has_pet.stuid join pets on has_pet.petid = pets.petid where pets.pettype = 'cat' and pets.pet_age = 3 order by student.lname limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Find the average age of students who do not have any pet .",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select avg(age) from student where stuid not in (select stuid from has_pet)",
+      "gen_sql": "select avg(student.age) from student left join has_pet on student.stuid = has_pet.stuid where has_pet.petid is null",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the average age for all students who do not own any pets ?",
+      "db_id": "pets_1",
+      "agents": {},
+      "gold_sql": "select avg(age) from student where stuid not in (select stuid from has_pet)",
+      "gen_sql": "select avg(student.age) from student left join has_pet on student.stuid = has_pet.stuid where has_pet.stuid is null",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many continents are there?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select count(*) from continents",
+      "gen_sql": "select count(distinct continents.continent) from continents",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the number of continents?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select count(*) from continents",
+      "gen_sql": "select count(distinct continents.continent) from continents",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many countries does each continent have? List the continent id, continent name and the number of countries.",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.contid, t1.continent, count(*) from continents as t1 join countries as t2 on t1.contid = t2.continent group by t1.contid",
+      "gen_sql": "select continents.contid, continents.continent, count(countries.countryid) as numberofcountries from continents join countries on continents.contid = countries.continent group by continents.contid, continents.continent",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "For each continent, list its id, name, and how many countries it has?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.contid, t1.continent, count(*) from continents as t1 join countries as t2 on t1.contid = t2.continent group by t1.contid",
+      "gen_sql": "select continents.contid, continents.continent, count(countries.countryid) as countrycount from continents join countries on continents.contid = countries.continent group by continents.contid, continents.continent",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many countries are listed?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select count(*) from countries",
+      "gen_sql": "select count(distinct countryid) from countries",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many countries exist?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select count(*) from countries",
+      "gen_sql": "select count(distinct countryid) from countries",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "How many models does each car maker produce? List maker full name, id and the number.",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.fullname, t1.id, count(*) from car_makers as t1 join model_list as t2 on t1.id = t2.maker group by t1.id",
+      "gen_sql": "select car_makers.fullname, car_makers.id, count(model_list.modelid) as numberofmodels from car_makers join model_list on car_makers.id = model_list.maker group by car_makers.fullname, car_makers.id",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the full name of each car maker, along with its id and how many models it produces?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.fullname, t1.id, count(*) from car_makers as t1 join model_list as t2 on t1.id = t2.maker group by t1.id",
+      "gen_sql": "select car_makers.id, car_makers.fullname, count(model_list.modelid) as model_count from car_makers join model_list on car_makers.id = model_list.maker group by car_makers.id, car_makers.fullname",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "Which model of the car has the minimum horsepower?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.model from car_names as t1 join cars_data as t2 on t1.makeid = t2.id order by t2.horsepower asc limit 1",
+      "gen_sql": "select model_list.model from car_names join model_list on car_names.model = model_list.model join cars_data on car_names.makeid = cars_data.id order by cars_data.horsepower asc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    },
+    {
+      "question": "What is the model of the car with the smallest amount of horsepower?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.model from car_names as t1 join cars_data as t2 on t1.makeid = t2.id order by t2.horsepower asc limit 1",
+      "gen_sql": "select model_list.model from cars_data join model_list on cars_data.id = model_list.modelid order by cars_data.horsepower asc limit 1",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Find the model of the car whose weight is below the average weight.",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.model from car_names as t1 join cars_data as t2 on t1.makeid = t2.id where t2.weight < (select avg(weight) from cars_data)",
+      "gen_sql": "select model_list.model from model_list join car_names on model_list.model = car_names.model join cars_data on car_names.makeid = cars_data.id where cars_data.weight < (select avg(weight) from cars_data)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "What is the model for the car with a weight smaller than the average?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select t1.model from car_names as t1 join cars_data as t2 on t1.makeid = t2.id where t2.weight < (select avg(weight) from cars_data)",
+      "gen_sql": "select model_list.model from model_list join car_names on model_list.model = car_names.model join cars_data on car_names.makeid = cars_data.id where cars_data.weight < (select avg(weight) from cars_data)",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": false
+    },
+    {
+      "question": "Find the name of the makers that produced some cars in the year of 1970?",
+      "db_id": "car_1",
+      "agents": {},
+      "gold_sql": "select distinct t1.maker from car_makers as t1 join model_list as t2 on t1.id = t2.maker join car_names as t3 on t2.model = t3.model join cars_data as t4 on t3.makeid = t4.id where t4.year = '1970'",
+      "gen_sql": "select distinct car_makers.maker from car_makers join model_list on car_makers.id = model_list.maker join car_names on model_list.model = car_names.model join cars_data on car_names.makeid = cars_data.id where cars_data.year = 1970",
+      "exact_match": false,
+      "valid_sql": true,
+      "exec_match": true
+    }
+  ]
+}

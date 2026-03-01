@@ -1,4 +1,6 @@
 import json
+import argparse
+import os
 from collections import defaultdict
 from typing import List
 from utils import *
@@ -9,7 +11,14 @@ import difflib
 MAX_CRITIC_ATTEMPTS = 3
 
 def evaluate():
-    model= "gpt-4o-mini"
+    parser = argparse.ArgumentParser(description="Evaluate SQL-of-Thought with DeepSeek")
+    parser.add_argument('--ablation', type=str, choices=['none', 'no_correction', 'no_plan'], default='none',
+                        help='Ablation mode: none (Full SQL-of-Thought), no_correction (W/o Error Correction), no_plan (W/o Query Plan Generation)')
+    args = parser.parse_args()
+    
+    # Set model context
+    model = os.environ.get("DEEPSEEK_MODEL", "deepseek-chat")
+    
     dev = load_spider(dev=True)
     taxonomy = json.load(open("error_taxonomy.json"))
     total, exact_match, valid_sql, exec_correct = 0, 0, 0, 0
@@ -48,18 +57,18 @@ def evaluate():
         subproblem_specific_clauses = list(set(parse_subproblems(sub_json)))
         subprob_plan, subprob_sql = clause_specific_prompts(subproblem_specific_clauses)
 
-        # 3. Query Plan Agent
-        plan_prompt = query_plan_agent_prompt(question, corrected_schema, sub_json)
-        # plan_prompt = query_plan_agent_prompt(question, schema, sub_json, subprob_plan)
-        # print("[Query Plan Agent Prompt]\n", plan_prompt)
-        plan = call_agent(plan_prompt, model)
-        print("[Query Plan Agent Output]\n", plan)
-        # entry["agents"]["plan"] = {"prompt": plan_prompt, "output": plan}
-
-        # 4. SQL Generating Agent
-        sql_prompt = sql_agent_prompt(question, plan, corrected_schema)
-        # sql_prompt = sql_agent_prompt(plan, schema, subprob_sql)
-        # print("[SQL Agent Prompt]\n", sql_prompt)
+        # 3. Query Plan Agent (Skipped if 'no_plan' ablation)
+        if args.ablation == 'no_plan':
+            print("[Query Plan Agent Output]\nSkipped (Ablation)")
+            sql_prompt = sql_without_query_plan_agent_prompt(question, corrected_schema, sub_json)
+        else:
+            plan_prompt = query_plan_agent_prompt(question, corrected_schema, sub_json)
+            plan = call_agent(plan_prompt, model)
+            print("[Query Plan Agent Output]\n", plan)
+            
+            # 4. SQL Generating Agent
+            sql_prompt = sql_agent_prompt(question, plan, corrected_schema)
+            
         sql = call_agent(sql_prompt, model)
         sql = postprocess_sql(sql)
         print("[SQL Agent Output]\n", sql)
@@ -68,22 +77,22 @@ def evaluate():
         exec_failed = not(exec_match)
         attempts = 0
 
-        # Correction Loop
-        
-        while exec_failed and attempts < MAX_CRITIC_ATTEMPTS:
-            correction_plan_prompt = correction_plan_agent_prompt(question, sql, corrected_schema, error)
-            correction_plan = call_agent(correction_plan_prompt, model)
-            # print(f"\n[SQL Correction Plan Prompt]: \n{correction_plan_prompt}")
-            print(f"\n[SQL Correction Plan Output]: \n{correction_plan}")
-            correction_sql_prompt = correction_sql_agent_prompt(question, corrected_schema, correction_plan, sql)
-            corrected_sql = call_agent(correction_sql_prompt, model)
-            sql = postprocess_sql(corrected_sql)
-            # print(f"\n[SQL Correction Prompt]: \n{correction_sql_prompt}")
-            print(f"\n[SQL Correction Output]: \n{sql}")
-            exec_match, error = query_execution(item, sql)
-            exec_failed = not(exec_match)
-            attempts += 1
-            print(f"\nVALID SQL?: {exec_match}, \nWill loop continue? {exec_failed}, {attempts}")
+        # Correction Loop (Skipped if 'no_correction' ablation)
+        if args.ablation != 'no_correction':
+            while exec_failed and attempts < MAX_CRITIC_ATTEMPTS:
+                correction_plan_prompt = correction_plan_agent_prompt(question, sql, corrected_schema, error)
+                correction_plan = call_agent(correction_plan_prompt, model)
+                # print(f"\n[SQL Correction Plan Prompt]: \n{correction_plan_prompt}")
+                print(f"\n[SQL Correction Plan Output]: \n{correction_plan}")
+                correction_sql_prompt = correction_sql_agent_prompt(question, corrected_schema, correction_plan, sql)
+                corrected_sql = call_agent(correction_sql_prompt, model)
+                sql = postprocess_sql(corrected_sql)
+                # print(f"\n[SQL Correction Prompt]: \n{correction_sql_prompt}")
+                print(f"\n[SQL Correction Output]: \n{sql}")
+                exec_match, error = query_execution(item, sql)
+                exec_failed = not(exec_match)
+                attempts += 1
+                print(f"\nVALID SQL?: {exec_match}, \nWill loop continue? {exec_failed}, {attempts}")
         
         ''' commenting critic loop
         critic_history = []
@@ -150,9 +159,9 @@ def evaluate():
         "exact_match": exact_match,
         "valid_sql": valid_sql,
         "execution_accuracy": exec_correct,
-        "exact_match_rate": round(exact_match / total, 4),
-        "valid_sql_rate": round(valid_sql / total, 4),
-        "execution_accuracy_rate": round(exec_correct / total, 4)
+        "exact_match_rate": round(exact_match / total, 4) if total > 0 else 0,
+        "valid_sql_rate": round(valid_sql / total, 4) if total > 0 else 0,
+        "execution_accuracy_rate": round(exec_correct / total, 4) if total > 0 else 0
     }
 
     output = {
@@ -160,7 +169,9 @@ def evaluate():
         "results": results
     }
 
-    with open("ablations_actual/100_gpt4o-mini.json", "w") as f:
+    out_filename = f"100_deepseek_{args.ablation}.json"
+    os.makedirs("ablations_actual", exist_ok=True)
+    with open(os.path.join("ablations_actual", out_filename), "w") as f:
         json.dump(output, f, indent=2)
 
     print("\n======= Evaluation Summary =======")
